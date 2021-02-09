@@ -17,3 +17,7 @@ Once you create a GitHub account, you should be able to go to https://github.com
 # A Better Way to Edit the Script
 
 For this step, you will have to learn some basic git commands (Connor will help you get git set up on your machines if you do not already have it). Basically you can use "git pull" from the main branch of the repository to update all files, edit the files on code editors on your machines (such as IDLE or Visual Studios for Python files) and save them. Then, using SSH keys and git commands, these changes can be committed to the common code source on github. 
+
+# Hi Zac
+
+What's up
