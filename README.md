@@ -11,9 +11,9 @@ This command will create a directory called Drone_Script and within it construct
 
 # Editing the Script
 
-Editing the script will be easiest to do online through GitHub, as it allows collaborative editing (although not in real time like Google Docs). 
+Editing the script will be easy to do online through GitHub for small changes, as it allows collaborative editing (although not in real time like Google Docs). 
 Once you create a GitHub account, you should be able to go to https://github.com/conifer0us/SLES-Drone and the project files will be stored there to edit. Once you are done making edits, select make new branch for this commit and start a pull request. This option is incredibly important because it allows for editing on personal time, but code will not be officially updated to include your edits until everyone has discussed and agreed that the code additions are valuable ones. Once it is agreed upon, the request will be committed and the code updated. 
 
-# Automated Script Cloning
+# A Better Way to Edit the Script
 
-The .bat file included in the repository is designed to automatically remove the existing Drone Repository on your machine and update it to the newest version. After running "git clone https://github.com/conifer0us/SLES-Drone Drone_Script" for the first time, move the update_drone.bat file outside of the Drone_Script directory and into its parent directory. Once you do this, you can either run "./update_drone.bat" or double click on the batch file in the parent directory where the batch file is now stored. This is a very simple script but it may require authentication. For linux, it may require running as root user, and it will ask permission to delete the directory. In addition, GitHub will ask for sign in information. Use the account information you provided me because only with your account are you able to access the repository. If you are not able to run the update_drone.bat even as root user and are still getting a permission denied message, run "sudo chmod +x update_drone.bat" and then try again to run "sudo ./update_drone.bat".
+For this step, you will have to learn some basic git commands (Connor will help you get git set up on your machines if you do not already have it). Basically you can use "git pull" from the main branch of the repository to update all files, edit the files on code editors on your machines (such as IDLE or Visual Studios for Python files) and save them. Then, using SSH keys and git commands, these changes can be committed to the common code source on github. 
