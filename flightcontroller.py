@@ -25,7 +25,7 @@ def testFunctionOne():
     GPIO.cleanup()
 
 def moveOnConfirm():
-    skipTest = input("Skipping the test phase. Confirm (y/n)?")
+    skipTest = input("Moving past the test phase. Confirm (y/n)?")
     if skipTest == "y" or skipTest == "Y" or skipTest == "Yes" or skipTest == "yes":
        print("\n") 
     else:
@@ -40,6 +40,7 @@ def testCode():
             testFunctionOne()
         elif (typeTest == ""):
             testFunctionOne()
+            moveOnConfirm()
         else:
             print("Enter a valid option")
             testCode()
