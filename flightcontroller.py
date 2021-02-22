@@ -53,7 +53,7 @@ def testCode():
 def runDrone():
     print("Entering drone flight mode.")
 
-# Function Ordering
+# Function Ordering and Flow Control
 
 testCode()
 runDrone()
