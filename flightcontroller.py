@@ -9,7 +9,7 @@ import RPi.GPIO as GPIO
 
 # Provides an option for testing certain parts of the code
 
-test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly."]
+test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n"]
 
 def testFunctionOne():
     GPIO.setmode(GPIO.BCM)
@@ -25,7 +25,7 @@ def testFunctionOne():
     GPIO.cleanup()
 
 def moveOnConfirm():
-    skipTest = input("Moving past the test phase. Confirm (y/n)?")
+    skipTest = input("\nMoving past the test phase. Confirm (y/n)?\n")
     if skipTest == "y" or skipTest == "Y" or skipTest == "Yes" or skipTest == "yes":
        print("\n") 
     else:
@@ -35,14 +35,15 @@ def testCode():
     try:
         for information in test_info_str:
             print(information + "\n")
-        typeTest = input("Press Control-C to exit the testing phase and skip to code execution. Press a number above and enter for a specific test scenario. Simply press enter to run all tests.")
+        typeTest = input("\n\nPress Control-C to exit the testing phase and skip to code execution. Press a number above and enter for a specific test scenario. Simply press enter to run all tests.\n\n")
         if (typeTest == "1"):
             testFunctionOne()
+            moveOnConfirm()
         elif (typeTest == ""):
             testFunctionOne()
             moveOnConfirm()
         else:
-            print("Enter a valid option")
+            print("Enter a valid option\n")
             testCode()
     except: 
         moveOnConfirm()
