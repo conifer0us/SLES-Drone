@@ -9,14 +9,17 @@ import RPi.GPIO as GPIO
 import keyboard
 import time
 
+# Defines and sets up GPIO channels
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(13, GPIO.OUT)
+
 # Provides an option for testing certain parts of the code
 
 test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n", "2)  Tests to ensure that the keyboard module is installed and working properly."]
 
 def testFunctionOne():
     print("Running GPIO output test \n\n")
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(13, GPIO.OUT)
     p = GPIO.PWM(13, 500)
     p.start(66.7)
     print("Go")
@@ -74,6 +77,7 @@ def testCode():
 
 def runDrone():
     print("Entering drone flight mode.")
+
 
 # Function Ordering and Flow Control (runDrone referenced from moveOnConfirm() inside of testCode())
 
