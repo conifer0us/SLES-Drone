@@ -7,6 +7,7 @@ print("Welcome to the SLES Robotics Drone Project. The Flight Controller Script 
 
 import RPi.GPIO as GPIO
 import keyboard
+import time
 
 # Provides an option for testing certain parts of the code
 
@@ -31,17 +32,21 @@ def testFunctionTwo():
     print("Pressing A key should output a stream of lols. Press q to end keyboard test.")
     while True:
         if keyboard.is_pressed("a"):
+            time.sleep(.1)
             print("lol")
         elif keyboard.is_pressed("q"):
-            print("stopping")
             break
+        else:
+            continue
 
 def moveOnConfirm():
     skipTest = input("\nMoving past the test phase. Confirm (y/n)?\n")
     if skipTest == "y" or skipTest == "Y" or skipTest == "Yes" or skipTest == "yes":
-       print("\n") 
-    else:
+        runDrone()
+    elif skipTest == "n" or skipTest == "No" or skipTest == "No" or skipTest == "no":
         testCode()
+    else:
+        moveOnConfirm()
 
 def testCode():
     try:
@@ -56,6 +61,7 @@ def testCode():
             moveOnConfirm()
         elif (typeTest == ""):
             testFunctionOne()
+            testFunctionTwo()
             moveOnConfirm()
         else:
             print("Enter a valid option\n")
@@ -69,7 +75,6 @@ def testCode():
 def runDrone():
     print("Entering drone flight mode.")
 
-# Function Ordering and Flow Control
+# Function Ordering and Flow Control (runDrone referenced from moveOnConfirm() inside of testCode())
 
 testCode()
-runDrone()
