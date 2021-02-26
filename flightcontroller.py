@@ -6,12 +6,14 @@ print("Welcome to the SLES Robotics Drone Project. The Flight Controller Script 
 # Module Imports Here
 
 import RPi.GPIO as GPIO
+import keyboard
 
 # Provides an option for testing certain parts of the code
 
-test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n"]
+test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n", "2)  Tests to ensure that the keyboard module is installed and working properly."]
 
 def testFunctionOne():
+    print("Running GPIO output test \n\n")
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(13, GPIO.OUT)
     p = GPIO.PWM(13, 500)
@@ -21,8 +23,18 @@ def testFunctionOne():
     p.ChangeDutyCycle(75)
     input('Press return to stop:')
     p.stop()
-    print("stop")
+    print("stopping")
     GPIO.cleanup()
+
+def testFunctionTwo():
+    print("Running keyboard module test\n\n")
+    print("Pressing A key should output a stream of lols. Press q to end keyboard test.")
+    while True:
+        if keyboard.is_pressed("a"):
+            print("lol")
+        elif keyboard.is_pressed("q"):
+            print("stopping")
+            break
 
 def moveOnConfirm():
     skipTest = input("\nMoving past the test phase. Confirm (y/n)?\n")
@@ -38,6 +50,9 @@ def testCode():
         typeTest = input("\n\nPress Control-C to exit the testing phase and skip to code execution. Press a number above and enter for a specific test scenario. Simply press enter to run all tests.\n\n")
         if (typeTest == "1"):
             testFunctionOne()
+            moveOnConfirm()
+        elif (typeTest == "2"):
+            testFunctionTwo()
             moveOnConfirm()
         elif (typeTest == ""):
             testFunctionOne()
