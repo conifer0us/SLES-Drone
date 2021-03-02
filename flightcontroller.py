@@ -11,8 +11,7 @@ import time
 
 # Defines and sets up GPIO channels
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(13, GPIO.OUT)
+base_value = 51
 
 # Provides an option for testing certain parts of the code
 
@@ -20,11 +19,13 @@ test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is fu
 
 def testFunctionOne():
     print("Running GPIO output test \n\n")
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(13, GPIO.OUT)
     p = GPIO.PWM(13, 500)
-    p.start(66.7)
+    p.start(10)
     print("Go")
     input('Press return to change:')
-    p.ChangeDutyCycle(75)
+    p.ChangeDutyCycle(80)
     input('Press return to stop:')
     p.stop()
     print("stopping")
@@ -77,7 +78,36 @@ def testCode():
 
 def runDrone():
     print("Entering drone flight mode.")
-
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(12,GPIO.OUT)
+    GPIO.setup(13,GPIO.OUT)
+    GPIO.setup(18,GPIO.OUT)
+    GPIO.setup(19,GPIO.OUT)
+    GPIO.setup(16,GPIO.OUT)
+    pitch = GPIO.PWM(12, 500)
+    roll = GPIO.PWM(13, 500)
+    yaw = GPIO.PWM(18, 500)
+    throttle = GPIO.PWM(19, 500)
+    arm = GPIO.PWM(16, 500)
+    channels = [pitch,roll,yaw,throttle]
+    arm.start(66)               # check the frequency for arm to activate motor 
+    for channel in channels:
+        channel.start(base_value)
+    while True:
+        if keyboard.is_pressed("w"):
+            roll.ChangeDutyCycle(95)
+            time.sleep(.1)
+        elif keyboard.is_pressed("s"):
+            roll.ChangeDutyCycle(10)
+            time.sleep(.1)
+        elif keyboard.is_pressed("p"):
+            break
+        else:
+            roll.ChangeDutyCycle(43)
+    for channel in channels:
+        channel.stop()
+    arm.stop()
+    GPIO.cleanup()
 
 # Function Ordering and Flow Control (runDrone referenced from moveOnConfirm() inside of testCode())
 
