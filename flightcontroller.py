@@ -11,7 +11,7 @@ import time
 
 # Defines and sets up GPIO channels
 
-base_value = 51
+base_value = 55
 
 # Provides an option for testing certain parts of the code
 
@@ -90,20 +90,20 @@ def runDrone():
     throttle = GPIO.PWM(19, 500)
     arm = GPIO.PWM(16, 500)
     channels = [pitch,roll,yaw,throttle]
-    arm.start(66)               # check the frequency for arm to activate motor 
+    arm.start(75)               # check the frequency for arm to activate motor 
     for channel in channels:
         channel.start(base_value)
     while True:
         if keyboard.is_pressed("w"):
-            roll.ChangeDutyCycle(95)
+            throttle.ChangeDutyCycle(95)
             time.sleep(.1)
         elif keyboard.is_pressed("s"):
-            roll.ChangeDutyCycle(10)
+            throttle.ChangeDutyCycle(65)
             time.sleep(.1)
         elif keyboard.is_pressed("p"):
             break
         else:
-            roll.ChangeDutyCycle(43)
+            throttle.ChangeDutyCycle(55)
     for channel in channels:
         channel.stop()
     arm.stop()
