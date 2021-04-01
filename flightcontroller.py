@@ -88,13 +88,16 @@ def runDrone():
     roll = GPIO.PWM(13, 500)
     yaw = GPIO.PWM(19, 500)
     throttle = GPIO.PWM(12, 500)
-    channels = [pitch,roll,yaw,throttle]
-    for channel in channels:
-        channel.start(base_value)
-    throttle.ChangeDutyCycle(45)
     arm = GPIO.PWM(16, 500)
+    channels = [pitch,roll,yaw,throttle]
     arm.start(90)
-    time.sleep(2)
+    throttle.start(49)
+    pitch.start(75)
+    roll.start(75)
+    yaw.start(95)
+    time.sleep(4)
+    for channel in channels:
+        channel.ChangeDutyCycle(75)
     while True:
         if keyboard.is_pressed("w"):
             throttle.ChangeDutyCycle(95)
