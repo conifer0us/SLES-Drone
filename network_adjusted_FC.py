@@ -7,7 +7,8 @@ print("Welcome to the SLES Robotics Drone Project. The Flight Controller Script 
 
 import RPi.GPIO as GPIO
 import keyboard
-import time
+import time\
+import os
 
 # Defines and sets up GPIO channels
 
@@ -96,13 +97,17 @@ def runDrone():
     arm.start(90)
     time.sleep(2)
     while True:
-        if keyboard.is_pressed("w"):
+        received_char = os.system('nc -lN -p 9000').read().decode('utf-8')
+        if received_char == 'w':
             throttle.ChangeDutyCycle(95)
+            print('w')
             time.sleep(.1)
-        elif keyboard.is_pressed("s"):
+        elif received_char == 's':
             throttle.ChangeDutyCycle(65)
+            print('s')
             time.sleep(.1)
-        elif keyboard.is_pressed("p"):
+        elif received_char == 'p':
+            print('stopping')
             break
         else:
             throttle.ChangeDutyCycle(55)
