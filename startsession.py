@@ -16,6 +16,7 @@ ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(host, port, username, password)
 ssh.exec_command("sudo su;git pull;cd ~/Desktop/SLES-Drone/;" + command)
+ssh.close()
 
 pi_ip = input("What is the ip of the device that is receiving this keyboard input? (Default localhost)    ")
 port = input("What port do you want to connect to? (Default 9000)    ")
