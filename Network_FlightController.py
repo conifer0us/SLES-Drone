@@ -15,7 +15,7 @@ base_value = 55
 
 # Provides an option for testing certain parts of the code
 
-test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n", "2)  Tests to ensure that the keyboard module is installed and working properly.\n", "3) Tests to make sure motor comes on by altering throttle; only run on raspberry pi itself because it turns off using ctrl C"]
+test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n", "2)  Tests to ensure that the keyboard module is installed and working properly.\n", "3) Tests to make sure motor comes on by altering throttle; press space to stop"]
 
 def testFunctionOne():
     print("Running GPIO output test \n\n")
@@ -45,34 +45,34 @@ def testFunctionTwo():
             continue
 
 def testFunctionThree():
-    try:
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(12,GPIO.OUT)
-        GPIO.setup(13,GPIO.OUT)
-        GPIO.setup(18,GPIO.OUT)
-        GPIO.setup(19,GPIO.OUT)
-        GPIO.setup(16,GPIO.OUT)
-        pitch = GPIO.PWM(18, 500)
-        roll = GPIO.PWM(13, 500)
-        yaw = GPIO.PWM(19, 500)
-        throttle = GPIO.PWM(12, 500)
-        arm = GPIO.PWM(16, 500)
-        channels = [pitch,roll,yaw,throttle]
-        arm.start(90)
-        throttle.start(49)
-        pitch.start(75)
-        roll.start(75)
-        yaw.start(95)
-        time.sleep(4)
-        for channel in channels:
-            channel.ChangeDutyCycle(75)
-        while True:
-            continue 
-    except:
-        arm.stop()
-        for channel in channels:
-            channel.stop()
-        GPIO.cleanup()
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(12,GPIO.OUT)
+    GPIO.setup(13,GPIO.OUT)
+    GPIO.setup(18,GPIO.OUT)
+    GPIO.setup(19,GPIO.OUT)
+    GPIO.setup(16,GPIO.OUT)
+    pitch = GPIO.PWM(18, 500)
+    roll = GPIO.PWM(13, 500)
+    yaw = GPIO.PWM(19, 500)
+    throttle = GPIO.PWM(12, 500)
+    arm = GPIO.PWM(16, 500)
+    channels = [pitch,roll,yaw,throttle]
+    arm.start(90)
+    throttle.start(49)
+    pitch.start(75)
+    roll.start(75)
+    yaw.start(95)
+    time.sleep(4)
+    for channel in channels:
+        channel.ChangeDutyCycle(75)
+    while True:
+        cont_var = input()
+        if cont_var == "space":
+            arm.stop()
+            for channel in channels:
+                channel.stop()
+            GPIO.cleanup()
+        continue 
 
 def moveOnConfirm():
     skipTest = input("\nMoving past the test phase. Confirm (y/n)?\n")
