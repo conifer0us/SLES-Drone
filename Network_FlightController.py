@@ -121,17 +121,20 @@ def runDrone():
     GPIO.setup(18,GPIO.OUT)
     GPIO.setup(19,GPIO.OUT)
     GPIO.setup(16,GPIO.OUT)
+    GPIO.setup(17,GPIO.OUT)
     pitch = GPIO.PWM(18, 500)
     roll = GPIO.PWM(13, 500)
     yaw = GPIO.PWM(19, 500)
     throttle = GPIO.PWM(12, 500)
     arm = GPIO.PWM(16, 500)
+    horizon = GPIO.PWM(17, 500)
     channels = [pitch,roll,yaw,throttle]
     arm.start(90)
     throttle.start(49)
     pitch.start(75)
     roll.start(75)
     yaw.start(95)
+    horizon.start(90)
     time.sleep(4)
     for channel in channels:
         channel.ChangeDutyCycle(75)
@@ -149,7 +152,8 @@ def runDrone():
             throttle.ChangeDutyCycle(55)
     for channel in channels:
         channel.stop()
-    arm.stop()
+    angle.stop()
+    horizon.stop()
     GPIO.cleanup()
 
 # Function Ordering and Flow Control (runDrone referenced from moveOnConfirm() inside of testCode())
