@@ -3,12 +3,12 @@ import keyboard
 import time
 import paramiko
 
-controller_ip = "" # change to match the ip of the controlling device
+controller_ip = "127.20.10.5" # change to match the ip of the controlling device, this default works on Connor's iPhone only
 
-host = "" # change to match the ip of the raspberry pi
+host = "172.20.10.8" # change to match the ip of the raspberry pi, this default works on Connor's iPhone only
 port = 22
 username = "pi"
-password = "r0b0t1cs"
+password = "R0b0t1cs"
 
 command = "nc -lk -p 9000 | python3 Network_FlightController.py | nc " + controller_ip + " 9001"
 
@@ -20,7 +20,7 @@ ssh.close()
 
 pi_ip = input("What is the ip of the device that is receiving this keyboard input? (Default localhost)    ")
 port = input("What port do you want to connect to? (Default 9000)    ")
-if pi_ip == "": pi_ip = "127.0.0.1"
+if pi_ip == "": pi_ip = "127.20.10.8"
 if port == "": port = "9000"
 
 def sendletter(letter_to_send):
