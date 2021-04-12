@@ -18,10 +18,8 @@ ssh.connect(host, port, username, password)
 ssh.exec_command("sudo su;git pull;cd ~/Desktop/SLES-Drone/;" + command)
 ssh.close()
 
-pi_ip = input("What is the ip of the device that is receiving this keyboard input? (Default localhost)    ")
-port = input("What port do you want to connect to? (Default 9000)    ")
-if pi_ip == "": pi_ip = "127.20.10.8"
-if port == "": port = "9000"
+pi_ip = "127.20.10.8"
+port = "9000"
 
 def sendletter(letter_to_send):
     os.popen("echo " + letter_to_send + "| ncat "+pi_ip+" "+port)
