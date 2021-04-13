@@ -35,7 +35,7 @@ def testFunctionTwo():
     print("Running keyboard module test\n\n")
     print("Pressing A key should output a stream of lols. Press q to end keyboard test.")
     while True:
-        letter_pressed = input()
+        letter_pressed = input().replace("\n", "").replace(" ","")[0]
         if letter_pressed=="a":
             time.sleep(.1)
             print("lol")
@@ -66,8 +66,8 @@ def testFunctionThree():
     for channel in channels:
         channel.ChangeDutyCycle(75)
     while True:
-        cont_var = input()
-        if cont_var == "space":
+        cont_var = input().replace("\n", "").replace(" ","")[0]
+        if cont_var == " ":
             arm.stop()
             for channel in channels:
                 channel.stop()
@@ -75,7 +75,7 @@ def testFunctionThree():
         continue 
 
 def moveOnConfirm():
-    skipTest = input("\nMoving past the test phase. Confirm (y/n)?\n")
+    skipTest = input("\nMoving past the test phase. Confirm (y/n)?\n").replace("\n", "").replace(" ","")[0]
     if skipTest == "y" or skipTest == "Y" or skipTest == "Yes" or skipTest == "yes":
         runDrone()
     elif skipTest == "n" or skipTest == "No" or skipTest == "No" or skipTest == "no":
@@ -87,7 +87,7 @@ def testCode():
     try:
         for information in test_info_str:
             print(information + "\n")
-        typeTest = input("\n\nPress x to exit the testing phase and skip to code execution. Press a number above and enter for a specific test scenario. Simply press a to run all tests.\n\n")
+        typeTest = input("\n\nPress x to exit the testing phase and skip to code execution. Press a number above and enter for a specific test scenario. Simply press a to run all tests.\n\n").replace("\n", "").replace(" ","")[0]
         if (typeTest == "1"):
             testFunctionOne()
             moveOnConfirm()
@@ -139,7 +139,7 @@ def runDrone():
     for channel in channels:
         channel.ChangeDutyCycle(75)
     while True:
-        key_pressed = input()
+        key_pressed = input().replace("\n", "").replace(" ","")[0]
         if key_pressed == 'w':
             throttle.ChangeDutyCycle(95)
             time.sleep(.1)
