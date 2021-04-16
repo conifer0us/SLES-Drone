@@ -3,7 +3,7 @@ import keyboard
 import time
 import paramiko
 
-controller_ip = "127.20.10.5" # change to match the ip of the controlling device, this default works on Connor's iPhone only
+controller_ip = "172.20.10.9" # change to match the ip of the controlling device, this default works on Connor's iPhone only
 
 host = "172.20.10.8" # change to match the ip of the raspberry pi, this default works on Connor's iPhone only
 port = 22
@@ -18,7 +18,7 @@ ssh.connect(host, port, username, password)
 ssh.exec_command("sudo su;git pull;cd ~/Desktop/SLES-Drone/;" + command)
 ssh.close()
 
-pi_ip = "127.20.10.8"
+pi_ip = "172.20.10.8"
 port = "9000"
 
 def sendletter(letter_to_send):

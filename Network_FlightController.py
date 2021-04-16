@@ -148,6 +148,8 @@ def runDrone():
             time.sleep(.1)
         elif key_pressed == "p":
             break
+        elif key_pressed == "r":
+            throttle.ChangeDutyCycle(55)
         else:
             throttle.ChangeDutyCycle(55)
     for channel in channels:

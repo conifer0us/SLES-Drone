@@ -1,1 +1,1 @@
-ncat -lk -p 9001 | echo
+ncat -lk -p 9001
