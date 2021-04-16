@@ -27,7 +27,7 @@ def sendletter(letter_to_send):
 
 while True:
     try:
-        if keyboard.is_pressed():
+        if msvcrt.kbhit():
             while msvcrt.kbhit():
                 letter = msvcrt.getwche()
                 if letter != "r": sendletter(letter)
