@@ -100,7 +100,7 @@ def runDrone():
     horizon.start(90)
     time.sleep(4)
     for channel in channels:
-        channel.ChangeDutyCycle(75)
+        channel.ChangeDutyCycle(71)
     while True:
         if keyboard.is_pressed("w"):
             throttle.ChangeDutyCycle(95)
