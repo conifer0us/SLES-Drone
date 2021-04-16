@@ -2,6 +2,7 @@ import os
 import keyboard
 import time
 import paramiko
+import msvcrt
 
 controller_ip = "172.20.10.9" # change to match the ip of the controlling device, this default works on Connor's iPhone only
 
@@ -25,14 +26,13 @@ def sendletter(letter_to_send):
     os.popen("echo " + letter_to_send + "| ncat "+pi_ip+" "+port)
 
 while True:
-    revert_default = True
-    letter = keyboard.read_key()
-    if letter:
-        sendletter(letter)
-        time.sleep(.15)
-        revert_default = True
-    elif not letter and revert_default:
-        sendletter(" ")
-        revert_default = False
-    if letter == "p":
+    try:
+        if keyboard.is_pressed():
+            while msvcrt.kbhit():
+                letter = msvcrt.getwche()
+                if letter != "r": sendletter(letter)
+                if letter == "p": raise EnvironmentError
+                time.sleep(.1)
+            sendletter("r")
+    except:
         break
