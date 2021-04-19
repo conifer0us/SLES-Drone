@@ -1,5 +1,4 @@
 import os
-import keyboard
 import time
 import paramiko
 import msvcrt
@@ -16,7 +15,7 @@ command = "nc -lk -p 9000 | python3 Network_FlightController.py | nc " + control
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(host, port, username, password)
-ssh.exec_command("sudo su;git pull;cd ~/Desktop/SLES-Drone/;" + command)
+ssh.exec_command("cd ~/Desktop/SLES-Drone/;sudo su;" + command)
 ssh.close()
 
 pi_ip = "172.20.10.8"
@@ -35,4 +34,9 @@ while True:
                 time.sleep(.1)
             sendletter("r")
     except:
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(host, port, username, password)
+        ssh.exec_command("cd ~/Desktop/SLES-Drone/; python3 listen_stop.py")
+        ssh.close()
         break

@@ -5,9 +5,6 @@ print("Welcome to the SLES Robotics Drone Project. The Flight Controller Script 
 
 # Module Imports Here
 
-import RPi.GPIO as GPIO
-import time
-
 # Defines and sets up GPIO channels
 
 base_value = 55
