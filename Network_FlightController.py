@@ -5,13 +5,17 @@ print("Welcome to the SLES Robotics Drone Project. The Flight Controller Script 
 
 # Module Imports Here
 
+import time
+import RPi.GPIO as GPIO
+import os
+
 # Defines and sets up GPIO channels
 
 base_value = 55
 
 # Provides an option for testing certain parts of the code
 
-test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n", "2)  Tests to ensure that the keyboard module is installed and working properly.\n", "3) Tests to make sure motor comes on by altering throttle; press space to stop"]
+test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n", "2)  Tests to ensure that the keyboard module is installed and working properly.\n", "3) Tests to make sure motor comes on by altering throttle; press space to stop", "4) Test to make sure the process of shutting down processes on port 9000 is effective."]
 
 def testFunctionOne():
     print("Running GPIO output test \n\n")
@@ -61,14 +65,27 @@ def testFunctionThree():
     time.sleep(4)
     for channel in channels:
         channel.ChangeDutyCycle(75)
+    print("Press s to stop")
     while True:
         cont_var = input().replace("\n", "").replace(" ","")[0]
-        if cont_var == " ":
+        if cont_var == "s":
             arm.stop()
             for channel in channels:
                 channel.stop()
             GPIO.cleanup()
+            break
         continue 
+
+def testFunctionFour():
+    print("Starting multiple listening programs on port 9002 to test shutdown program.")
+    for i in range(10):
+        os.popen("nc -lk 9002")
+    print(os.popen("fuser 9002/tcp").read() + "Press a key to cancel the processes.")
+    input()
+    for pid in os.popen("fuser 9002/tcp").read().replace("  "," ").split(" ").remove(' '):
+        os.popen("kill " + pid)
+    print("\nProcesses now open on 9002:\n"+os.popen("fuser -lk 9002").read())
+
 
 def moveOnConfirm():
     skipTest = input("\nMoving past the test phase. Confirm (y/n)?\n").replace("\n", "").replace(" ","")[0]
@@ -93,10 +110,14 @@ def testCode():
         elif (typeTest == "3"):
             testFunctionThree()
             moveOnConfirm()
+        elif (typeTest == "4"):
+            testFunctionFour()
+            moveOnConfirm()
         elif (typeTest == "a"):
             testFunctionOne()
             testFunctionTwo()
             testFunctionThree()
+            testFunctionFour()
             moveOnConfirm()
         elif (typeTest == "x"):
             moveOnConfirm()
@@ -150,7 +171,7 @@ def runDrone():
             throttle.ChangeDutyCycle(55)
     for channel in channels:
         channel.stop()
-    angle.stop()
+    arm.stop()
     horizon.stop()
     GPIO.cleanup()
 
