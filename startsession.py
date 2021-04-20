@@ -34,9 +34,7 @@ while True:
                 time.sleep(.1)
             sendletter("r")
     except:
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(host, port, username, password)
-        ssh.exec_command("cd ~/Desktop/SLES-Drone/; python3 listen_stop.py")
+        ssh.exec_command("cd ~/Desktop/SLES-Drone/; sudo su; python3 listen_stop.py")
         ssh.close()
         break
