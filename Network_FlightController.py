@@ -82,7 +82,7 @@ def testFunctionFour():
         os.popen("nc -lk 9002")
     print(os.popen("fuser 9002/tcp").read() + "Press a key to cancel the processes.")
     input()
-    for pid in os.popen("fuser 9002/tcp").read().replace("  "," ").split(" ").remove(' '):
+    for pid in os.popen("fuser 9002/tcp").read().replace("  "," ").split(" ").remove(''):
         os.popen("kill " + pid)
     print("\nProcesses now open on 9002:\n"+os.popen("fuser -lk 9002").read())
 
