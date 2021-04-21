@@ -16,7 +16,6 @@ ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(host, port, username, password)
 ssh.exec_command("cd ~/Desktop/SLES-Drone/;sudo su;" + command)
-ssh.close()
 
 pi_ip = "172.20.10.8"
 port = "9000"
@@ -34,7 +33,6 @@ while True:
                 time.sleep(.1)
             sendletter("r")
     except:
-        ssh.connect(host, port, username, password)
         ssh.exec_command("cd ~/Desktop/SLES-Drone/; sudo su; python3 listen_stop.py")
         ssh.close()
         break
