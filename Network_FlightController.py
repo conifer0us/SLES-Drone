@@ -15,7 +15,7 @@ base_value = 55
 
 # Provides an option for testing certain parts of the code
 
-test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n", "2)  Tests to ensure that the keyboard module is installed and working properly.\n", "3) Tests to make sure motor comes on by altering throttle; press space to stop", "4) Test to make sure the process of shutting down processes on port 9000 is effective."]
+test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n", "2)  Tests to ensure that the keyboard module is installed and working properly.\n", "3) Tests to make sure motor comes on by altering throttle; press space to stop.\n", "4) Test to make sure the process of shutting down processes on port 9000 is effective."]
 
 def testFunctionOne():
     print("Running GPIO output test \n\n")
@@ -82,9 +82,10 @@ def testFunctionFour():
         os.popen("nc -lk 9002")
     print(os.popen("fuser 9002/tcp").read() + "Press a key to cancel the processes.")
     input()
-    for pid in os.popen("fuser 9002/tcp").read().replace("  "," ").split(" ").remove(''):
-        os.popen("kill " + pid)
-    print("\nProcesses now open on 9002:\n"+os.popen("fuser -lk 9002").read())
+    for pid in os.popen("fuser 9002/tcp").read().replace("  "," ").split(" "):
+        if pid:
+            os.popen("kill " + pid)
+    print("\nProcesses now open on 9002:\n"+os.popen("fuser 9002/tcp").read())
 
 
 def moveOnConfirm():
