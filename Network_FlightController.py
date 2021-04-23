@@ -126,7 +126,7 @@ def testCode():
             print("Enter a valid option\n")
             testCode()
     except:
-        print("Some kind of error occurred; restart or check the script.")
+        print("Script shutting down (Hopefully you did this on purpose)")
 
 
 # Creating the Function that will actually run the drone
