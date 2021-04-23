@@ -15,7 +15,7 @@ command = "nc -lk -p 9000 | python3 Network_FlightController.py | nc " + control
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(host, port, username, password)
-ssh.exec_command("cd ~/Desktop/SLES-Drone/;sudo su;" + command + ";nc -lk 9003 | sudo python3 listen_stop.py")
+ssh.exec_command("cd ~/Desktop/SLES-Drone/;sudo su;" + command)
 ssh.close()
 
 pi_ip = "172.20.10.8"
@@ -33,7 +33,7 @@ while True:
                 if letter == "p": 
                     os.popen("echo p | ncat "+pi_ip+" 9003")
                     raise EnvironmentError
-                time.sleep(.1)
+                time.sleep(.25)
             sendletter("r")
     except:
         break
