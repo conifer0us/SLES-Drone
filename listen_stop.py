@@ -12,4 +12,4 @@ while True:
     shutdown = input()
     if shutdown == "p":
         killall()
-        break
+        exit()
