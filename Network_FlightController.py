@@ -98,6 +98,7 @@ def moveOnConfirm():
         moveOnConfirm()
 
 def testCode():
+    os.popen("nc -l 9003 | python3 /home/pi/Desktop/SLES-Drone/listen_stop.py")
     try:
         for information in test_info_str:
             print(information + "\n")
@@ -127,6 +128,7 @@ def testCode():
             testCode()
     except:
         print("Script shutting down (Hopefully you did this on purpose)")
+        GPIO.cleanup()
 
 
 # Creating the Function that will actually run the drone
@@ -178,5 +180,4 @@ def runDrone():
 
 # Function Ordering and Flow Control (runDrone referenced from moveOnConfirm() inside of testCode())
 
-os.popen("nc -l 9003 | sudo python3 /home/pi/Desktop/SLES-Drone/listen_stop.py")
 testCode()
