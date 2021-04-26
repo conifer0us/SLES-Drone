@@ -15,7 +15,7 @@ command = "nc -lk -p 9000 | python3 Network_FlightController.py | nc " + control
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(host, port, username, password)
-ssh.exec_command("cd ~/Desktop/SLES-Drone/;sudo su;" + command)
+ssh.exec_command("cd ~/Desktop/SLES-Drone/;" + command)
 ssh.close()
 
 pi_ip = "172.20.10.8"
