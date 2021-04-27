@@ -122,12 +122,13 @@ def testCode():
             moveOnConfirm()
         elif (typeTest == "x"):
             moveOnConfirm()
-        else:
+        elif (typeTest != "r"):
             print("Enter a valid option\n")
             testCode()
     except:
         print("Script shutting down (Hopefully you did this on purpose)")
         GPIO.cleanup()
+        exit()
 
 
 # Creating the Function that will actually run the drone
