@@ -3,9 +3,9 @@ import time
 import paramiko
 import msvcrt
 
-controller_ip = "172.20.10.9" # change to match the ip of the controlling device, this default works on Connor's iPhone only
+controller_ip = "172.20.10.3" # change to match the ip of the controlling device, this default works on Zac's IPhone
 
-host = "172.20.10.8" # change to match the ip of the raspberry pi, this default works on Connor's iPhone only
+host = "172.20.10.2" # change to match the ip of the raspberry pi, this default works on Zac's IPhone only
 port = 22
 username = "pi"
 password = "R0b0t1cs"
@@ -19,11 +19,10 @@ ssh.exec_command("cd ~/Desktop/SLES-Drone/;" + command)
 ssh.exec_command("nc -l 9003 | python3 /home/pi/Desktop/SLES-Drone/listen_stop.py")
 ssh.close()
 
-pi_ip = "172.20.10.8"
 port = "9000"
 
 def sendletter(letter_to_send):
-    os.popen("echo " + letter_to_send + "| ncat "+pi_ip+" "+port)
+    os.popen("echo " + letter_to_send + "| ncat "+host+" "+port)
 
 while True:
     try:
@@ -32,7 +31,7 @@ while True:
                 letter = msvcrt.getwche()
                 if letter != "r": sendletter(letter)
                 if letter == "p": 
-                    os.popen("echo p | ncat "+pi_ip+" 9003")
+                    os.popen("echo p | ncat "+host+" 9003")
                     raise EnvironmentError
                 time.sleep(.25)
             sendletter("r")
