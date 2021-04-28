@@ -1,8 +1,12 @@
 import os
+import subprocess
+import time
 
 input() # Stop until kill signal
 print("***Shutdown Signal Received. Program is shutting down***")
-pids = os.system("fuser 9000/tcp").read().split()
-print("Killing " + " ".join(pids))
-os.popen('sudo kill ' + " ".join(pids))
+time.sleep(.25)
+pids = subprocess.check_output("fuser 9000/tcp").split()
+for pid in pids:
+    print("Killing " + pid)
+    os.popen('sudo kill ' + pid)
 exit()
