@@ -180,5 +180,4 @@ def runDrone():
 
 # Function Ordering and Flow Control (runDrone referenced from moveOnConfirm() inside of testCode())
 
-os.popen("nc -l 9003 | python3 /home/pi/Desktop/SLES-Drone/listen_stop.py")
 testCode()
