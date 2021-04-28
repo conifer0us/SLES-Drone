@@ -29,7 +29,7 @@ while True:
                 letter = msvcrt.getwche()
                 if letter != "r": sendletter(letter)
                 if letter == "p": 
-                    ssh.exec_command("nc -l 9003 | python3 /home/pi/Desktop/SLES-Drone/listen_stop.py")
+                    ssh.exec_command("nc -l -p 9003 | python3 /home/pi/Desktop/SLES-Drone/listen_stop.py | nc "+controller_ip+ " 9001")
                     ssh.close()
                     os.popen("echo p | ncat "+host+" 9003")
                     raise EnvironmentError
