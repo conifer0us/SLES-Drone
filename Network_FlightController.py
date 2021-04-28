@@ -125,6 +125,8 @@ def testCode():
         elif (typeTest != "r"):
             print("Enter a valid option\n")
             testCode()
+        else:
+            testCode()
     except:
         print("Script shutting down (Hopefully you did this on purpose)")
         GPIO.cleanup()
