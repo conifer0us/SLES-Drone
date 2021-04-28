@@ -15,8 +15,7 @@ command = "nc -lk -p 9000 | python3 Network_FlightController.py | nc " + control
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(host, port, username, password)
-ssh.exec_command("cd ~/Desktop/SLES-Drone/;" + command)
-ssh.exec_command("nc -l 9003 | python3 /home/pi/Desktop/SLES-Drone/listen_stop.py")
+ssh.exec_command("cd ~/Desktop/SLES-Drone/;" + command + "; nc -l 9003 | python3 /home/pi/Desktop/SLES-Drone/listen_stop.py")
 ssh.close()
 
 port = "9000"
