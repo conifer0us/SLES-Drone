@@ -9,13 +9,20 @@ import time
 import RPi.GPIO as GPIO
 import os
 
-# Defines and sets up GPIO channels
+# Defines GPIO channel base value and makes some basic functions
 
 base_value = 55
 
+def not_r_input(input_str):
+    """Return a single letter only!!!! This should be ok for processing network signals"""
+    value = input(input_str)[0]
+    if value == 'r':
+        return input()[0]
+    return value
+
 # Provides an option for testing certain parts of the code
 
-test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n", "2)  Tests to ensure that the keyboard module is installed and working properly.\n", "3) Tests to make sure motor comes on by altering throttle; press space to stop.\n", "4) Test to make sure the process of shutting down processes on port 9000 is effective."]
+test_info_str = ["1)  Run a basic LED light through GPIO 13. Tests if GPIO is functioning properly.\n", "2)  Tests to ensure that the keyboard module is installed and working properly.\n", "3) Tests to make sure motor comes on by altering throttle; press s to stop.\n", "4) Test to make sure the process of shutting down processes on port 9000 is effective."]
 
 def testFunctionOne():
     print("Running GPIO output test \n\n")
@@ -24,16 +31,16 @@ def testFunctionOne():
     p = GPIO.PWM(13, 500)
     p.start(10)
     print("Go")
-    input('Press anything to change:')
+    not_r_input("Press any letter to change light: ")
     p.ChangeDutyCycle(80)
-    input('Press anything to stop:')
+    not_r_input('Press anything to stop:')
     p.stop()
     print("stopping")
     GPIO.cleanup()
 
 def testFunctionTwo():
     print("Running keyboard module test\n\n")
-    print("Pressing A key should output a stream of lols. Press q to end keyboard test.")
+    print("Pressing A key over and over should output a stream of lols. Press q to end keyboard test.")
     while True:
         letter_pressed = input().replace("\n", "").replace(" ","")[0]
         if letter_pressed=="a":
@@ -77,11 +84,11 @@ def testFunctionThree():
         continue 
 
 def testFunctionFour():
-    print("Starting multiple listening programs on port 9002 to test shutdown program.")
+    print("Starting multiple listening programs on port 9002 to test shutdown program. Showing processes: ")
     for i in range(10):
         os.popen("nc -lk 9002")
-    print(os.popen("fuser 9002/tcp").read() + "Press a key to cancel the processes.")
-    input()
+    print(os.popen("fuser 9002/tcp").read() + "\n\nPress a key to cancel the processes.")
+    not_r_input("")
     for pid in os.popen("fuser 9002/tcp").read().replace("  "," ").split(" "):
         if pid:
             os.popen("kill " + pid)
@@ -89,10 +96,10 @@ def testFunctionFour():
 
 
 def moveOnConfirm():
-    skipTest = input("\nMoving past the test phase. Confirm (y/n)?\n").replace("\n", "").replace(" ","")[0]
-    if skipTest == "y" or skipTest == "Y" or skipTest == "Yes" or skipTest == "yes":
+    skipTest = not_r_input("\nMoving past the test phase. Confirm (y/n)?\n").replace("\n", "").replace(" ","")[0]
+    if skipTest == "y" or skipTest == "Y":
         runDrone()
-    elif skipTest == "n" or skipTest == "No" or skipTest == "No" or skipTest == "no":
+    elif skipTest == "n" or skipTest == "N":
         testCode()
     else:
         moveOnConfirm()
@@ -101,7 +108,7 @@ def testCode():
     try:
         for information in test_info_str:
             print(information + "\n")
-        typeTest = input("\n\nPress x to exit the testing phase and skip to code execution. Press a number above and enter for a specific test scenario. Simply press a to run all tests.\n\n").replace("\n", "").replace(" ","")[0]
+        typeTest = not_r_input("\n\nPress x to exit the testing phase and skip to code execution. Press a number above and enter for a specific test scenario. Simply press a to run all tests.\n\n").replace("\n", "").replace(" ","")[0]
         if (typeTest == "1"):
             testFunctionOne()
             moveOnConfirm()
@@ -125,8 +132,9 @@ def testCode():
         elif (typeTest != "r"):
             print("Enter a valid option\n")
             testCode()
-        else:
-            testCode()
+        else: 
+            print("The letter r was received, which should not occur. This error has caused the program to stop.")
+            raise EnvironmentError
     except:
         print("Script shutting down (Hopefully you did this on purpose)")
         GPIO.cleanup()
@@ -160,6 +168,7 @@ def runDrone():
     time.sleep(4)
     for channel in channels:
         channel.ChangeDutyCycle(75)
+    # This while loop contains the main scripting that controls drone flight
     while True:
         key_pressed = input().replace("\n", "").replace(" ","")[0]
         if key_pressed == 'w':
