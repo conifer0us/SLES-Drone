@@ -3,7 +3,7 @@ import time
 import paramiko
 from pynput.keyboard import Listener as keylistener
 
-controller_ip = "172.20.10.3" # change to match the ip of the controlling device, this default works on Zac's IPhone
+controller_ip = "172.20.10.5" # change to match the ip of the controlling device, this default works on Zac's IPhone
 pi_ip = "172.20.10.2" # change to match the ip of the raspberry pi, this default works on Zac's IPhone only
 
 port = 22
