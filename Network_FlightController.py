@@ -169,6 +169,7 @@ def runDrone():
     for channel in channels:
         channel.ChangeDutyCycle(75)
     # This while loop contains the main scripting that controls drone flight
+    print("Setup of GPIO channels completed")
     while True:
         key_pressed = input().replace("\n", "").replace(" ","")[0]
         if key_pressed == 'w':
