@@ -167,7 +167,7 @@ def runDrone():
     horizon.start(90)
     time.sleep(4)
     for channel in channels:
-        channel.ChangeDutyCycle(75)
+        channel.ChangeDutyCycle(71)
     # This while loop contains the main scripting that controls drone flight
     print("Setup of GPIO channels completed")
     while True:
