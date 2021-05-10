@@ -173,17 +173,17 @@ def runDrone():
     while True:
         key_pressed = input().replace("\n", "").replace(" ","")[0]
         if key_pressed == 'w':
-            throttle.ChangeDutyCycle(95)
+            throttle.ChangeDutyCycle(60)
             time.sleep(.1)
         elif key_pressed == "s":
-            throttle.ChangeDutyCycle(65)
+            throttle.ChangeDutyCycle(55)
             time.sleep(.1)
         elif key_pressed == "p":
             break
         elif key_pressed == "r":
-            throttle.ChangeDutyCycle(55)
+            throttle.ChangeDutyCycle(50)
         else:
-            throttle.ChangeDutyCycle(55)
+            throttle.ChangeDutyCycle(50)
     for channel in channels:
         channel.stop()
     arm.stop()
