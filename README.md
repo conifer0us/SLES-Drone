@@ -1,9 +1,7 @@
 # SLES-Drone
 The homepage for the St. Luke's Episcopal School Robotics Drone Project.
 
-This repository will contain the python script that will detect GPIO input and pass information on to the flight controller running the drone (and any other files necessary for the project).
-
-This project was completed in 2020.
+This repository was part of a project to create a working drone during the spring/summer of 2020. The scripts here handle wireless communication between a piloting computer and the drone, receiving command inputs over a local network and passing flight control commands to a controller board. 
 
 # Cloning the Script
 
