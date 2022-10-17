@@ -1,7 +1,7 @@
 # SLES-Drone
 The homepage for the St. Luke's Episcopal School Robotics Drone Project.
 
-This repository was part of a project to create a working drone during the spring/summer of 2020. The scripts here handle wireless communication between a piloting computer and the drone, receiving command inputs over a local network and passing flight control commands to a controller board. 
+This repository was part of a project to create a working drone during the spring/summer of 2020. The scripts here handle wireless communication between a piloting computer and the drone, sending and receiving command inputs over a local network and passing flight control commands to a controller board. 
 
 # Cloning the Script
 
